@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
             <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
-
+    <?= Html::a('Change Password',['password'])?>
 
 
     <?php ActiveForm::end()?>

@@ -20,9 +20,23 @@ class ProfileForm extends Model
         ];
     }
 
-    public function updateUser()
+    public function updateUser($userId)
     {
-        
+        if($this->validate()){
+            $user = User::findOne($userId);
+
+            if($user){
+                $user->username = $this->username;
+                $user->email = $this->email;
+                $user->birthdate = $this->birthdate;
+                $user->phone = $this->phone;
+
+                if($user->save()){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

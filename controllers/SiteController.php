@@ -12,6 +12,7 @@ use app\models\LoginForm;
 use app\models\SignupForm;
 use app\models\User;
 use app\models\ProfileForm;
+use app\models\PasswordForm;
 
 class SiteController extends Controller
 {
@@ -58,6 +59,7 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
+
         if(Yii::$app->request->isPost){
             if($model->load(Yii::$app->request->post()) && $model->signup()){
                 return $this->redirect(['site/index']);
@@ -91,6 +93,21 @@ class SiteController extends Controller
     {
         $model = new ProfileForm();
         $user = Yii::$app->user->identity;
+
+        if(Yii::$app->request->isPost){
+            $model->load(Yii::$app->request->post());
+
+            if($model->updateUser($user->id)){
+                return $this->redirect(['site/profile']);
+            }
+        }
+
         return $this->render('profile',['user'=>$user,'model'=>$model]);
+    }
+
+    public function actionPassword()
+    {
+    
+        return $this->render('password');
     }
 }
