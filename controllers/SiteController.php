@@ -107,7 +107,14 @@ class SiteController extends Controller
 
     public function actionPassword()
     {
-    
-        return $this->render('password');
+        $model = new PasswordForm;
+        $user = Yii::$app->user->identity;
+        
+        if($model->load(Yii::$app->request->post())){
+            if($model->changePassword($user->id)){
+                return $this->redirect(['site/profile']);
+            }
+        }
+        return $this->render('password',['model'=>$model]);
     }
 }

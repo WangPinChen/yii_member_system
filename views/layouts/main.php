@@ -38,17 +38,20 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'brandUrl' => Yii::$app->homeUrl,
         'options' => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top']
     ]);
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav'],
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Profile', 'url' => ['/site/profile']],
-            ['label' => 'Login', 'url' => ['/site/login']],
-            ['label' => 'Logout',
-             'url' => ['/site/logout'],
-             'linkOptions' => ['data-method' => 'post']],
+            Yii::$app->user->isGuest
+            ?''
+            :['label' => 'Profile', 'url' => ['/site/profile']],
+            Yii::$app->user->isGuest
+            ?['label' => 'Login', 'url' => ['/site/login']]
+            :['label' => 'Logout','url' => ['/site/logout']
+                ,'linkOptions' => ['data-method' => 'post']],
             ['label' => 'Signup', 'url' => ['/site/signup']]
-        ]
+        ],
     ]);
     NavBar::end();
     ?>

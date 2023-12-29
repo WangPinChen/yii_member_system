@@ -7,7 +7,11 @@ use yii\widgets\ActiveForm;
     <div class="text-center">
         <h1>Sign Page</h1>
     </div>
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin([
+        'options'=>[
+            'class'=>'w-50 mx-auto'
+        ]
+    ]); ?>
         <?= $form->field($model , 'username')->textInput(['autofocus' => true]) ?>
         <?= $form->field($model , 'email')->textInput()?>
         <?= $form->field($model , 'phone')->textInput(['type'=>'tel'])?>

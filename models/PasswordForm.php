@@ -1,10 +1,9 @@
 <?php
 namespace app\models;
-
 use yii\base\Model;
 use app\models\User;
 
-class Password extends model
+class PasswordForm extends model
 {
     public $oldPassword;
     public $newPassword;
@@ -18,5 +17,20 @@ class Password extends model
         ];
     }
 
+    public function changePassword($userId)
+    {
+        if($this->validate()){
+            $user = User::findOne($userId);
+
+            if($user && $user->password === $this->oldPassword){
+                $user->password = $this->newPassword;
+
+                if($user->save()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 }
 ?>
